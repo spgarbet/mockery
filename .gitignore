@@ -1,0 +1,14 @@
+*.swp
+.DS_Store
+rel/mockery
+rel/sys.config
+rel/vm.args
+_rel/
+deps/
+ebin/
+.eunit/*
+.erlang.mk.packages.v2
+priv/scratch/
+priv/data/
+erln8.config
+src/edate.beam
