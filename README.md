@@ -6,8 +6,8 @@ make
 
 The Massive To Do List
 
-# /mockery
-# Tabs
+
+# /mockery Tabs
 1. Instructions and Log, updated via async javascript
    a. Log include URI requested, and Hash Delivered
    b. Log includes, mock responses created
@@ -32,13 +32,13 @@ The Massive To Do List
    If it alrady exists, a warning appears, allowing "Abort" or "Overwrite"
  
 
-A SHA1 Hash of Verb + URI + Status + {Request} is used for locally storing response.
+A SHA1 Hash of Verb + URI + {Request} is used for locally storing response.
 
 First two characters will be directory under <project>/mocks. Remaining will be file containing JSON.
 
 Actual reserved routes
 
-/mockery => The main tabs, an internal asset
+/mockery => The main tabs, an internal asset that is mocked. Yes, the application is post-modern.
 /mockery/log => Log callback => JSON
 /mockery/routes => all the routes in  JSON
 /mockery/routes/[Hash] => returns JSON {verb, uri, request, status, request, response}

@@ -6,7 +6,10 @@
 
 start(_Type, _Args) ->
     Dispatch = cowboy_router:compile([
-        {'_', [{"/mockery", mockery_handler, []}]}
+        {'_', [{"/mockeries", mockeries_handler, []},
+		       {'_',          mock_handler,      []}
+		      ]
+	    }
     ]),
     cowboy:start_http(my_http_listener, 100, [{port, 8080}],
         [{env, [{dispatch, Dispatch}]}]
