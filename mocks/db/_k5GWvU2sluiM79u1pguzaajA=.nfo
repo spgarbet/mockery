@@ -1,0 +1,6 @@
+{
+  "URI": "/joe?pic=1",
+  "Status": 200,
+  "Request": "",
+  "Content-Type": "image/jpeg" 
+}
