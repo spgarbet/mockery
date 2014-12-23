@@ -1,36 +1,37 @@
 The purpose of Mockery is to quickly mock any endpoint called by a server with a canned response. This has value for full regression testing, when the response is known.
 
+```
 make
 ./_rel/mockery_release/bin/mockery_release console
+```
+
+##The Massive To Do List
 
 
-The Massive To Do List
-
-
-# /mockery Tabs
+### /mockery Tabs
 1. Instructions and Log, updated via async javascript
-   a. Log include URI requested, and Hash Delivered
-   b. Log includes, mock responses created
-   c. It's a rolling log of 20 events
+   1. Log include URI requested, and Hash Delivered
+   2. Log includes, mock responses created
+   3. It's a rolling log of 20 events
 2. Current Routes, updated when tab is selected
-   a. Scans local file system, and shows all Verb, URI -> Hashed Response
-   b. If the Verb is POST or PUT it is clickable to display the body of request
-   c. The Hash value is clickable to display the actual response
+   1. Scans local file system, and shows all Verb, URI -> Hashed Response
+   2. If the Verb is POST or PUT it is clickable to display the body of request
+   3. The Hash value is clickable to display the actual response
 3. Create Route,
-   Verb         : GET, POST, DELETE, PUT, HEAD
+   Verb         : GET, POST, DELETE, PUT, PATCH, HEAD
    URI          : a fully qualified URI
    Status       : HTTP status of response
    Content-Type : Content type of response (Can be omitted, freeform text, but has defaults)
    Request      : Body of Request (only available to PUT and POST)
    Response     : Mocked Response 
-   
-   a. GET, can be partial based on header 'Content-Range: bytes 1000-3979/3980'
-   b. HEAD is a GET request, with no body
-   c. POST and PUT have data in request body
-   
+
+   1. GET, can be partial based on header 'Content-Range: bytes 1000-3979/3980'
+   2. HEAD is a GET request, with no body
+   3. POST, PUT, and PATCH have data in request body
+
    When create is clicked. Hashed and written to file system.
    If it alrady exists, a warning appears, allowing "Abort" or "Overwrite"
- 
+
 
 A SHA1 Hash of Verb + URI + {Request} is used for locally storing response.
 
@@ -134,21 +135,40 @@ Any other URI is hashed to get status/response from filesystem.
 
 
 ### Content-Type
+
 application/ecmascript
+
 application/javascript
+
 application/json
+
 application/xhtml+xml
+
 application/xml
+
 application/xml-dtd
+
 application/zip
+
 application/gzip
+
 image/gif
+
 image/jpeg
+
 image/png
+
 image/svg+xml
+
 image/tiff
+
 text/css
+
 text/csv
+
 text/html
+
 text/plain
+
 text/xml
+
