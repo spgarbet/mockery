@@ -1,0 +1,12 @@
+[{<<"cowboy">>,<<"1.0.1">>,
+  {pkg,<<"cowboy">>,<<"1.0.1">>,
+       <<"https://s3.amazonaws.com/rebar_packages/generic/5.10.1/cowboy/1.0.1/cowboy-1.0.1.tar.gz">>},
+  0},
+ {<<"cowlib">>,<<"1.0.0">>,
+  {pkg,<<"cowlib">>,<<"1.0.0">>,
+       <<"https://s3.amazonaws.com/rebar_packages/generic/5.10.1/cowlib/1.0.0/cowlib-1.0.0.tar.gz">>},
+  0},
+ {<<"ranch">>,<<"1.0.0">>,
+  {pkg,<<"ranch">>,<<"1.0.0">>,
+       <<"https://s3.amazonaws.com/rebar_packages/generic/5.10.1/ranch/1.0.0/ranch-1.0.0.tar.gz">>},
+  0}].
