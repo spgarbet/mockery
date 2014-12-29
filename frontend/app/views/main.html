@@ -1,0 +1,60 @@
+<div class="content-inner-wrapper">
+  <ul class="tabs">
+    <li>
+      <input type="radio" name="tabs" id="tab1" checked />
+      <label for="tab1">Overview</label>
+      <div id="tab-content1" class="tab-content">
+        <p>Mockery instructions go here.</p>
+        <div class="log-wrap">
+
+        </div>
+      </div>
+    </li>
+
+    <li>
+      <input type="radio" name="tabs" id="tab2" />
+      <label for="tab2">Routes</label>
+      <div id="tab-content2" class="tab-content">
+        <p>Listing of routes go here.</p>
+        <div class="routes-wrap">
+
+        </div>
+      </div>
+    </li>
+    <li>
+      <input type="radio" name="tabs" id="tab3" />
+      <label for="tab3">Input</label>
+      <div id="tab-content3" class="tab-content">
+        <p>Input verbs, URIs and dropdowns go here.</p>
+        <form class="test-form">
+          <div class="left-half">
+            Verb:
+            <select ng-model="verbValue" id="verb">
+              <option value="GET">GET</option>
+              <option value="POST">POST</option>
+              <option value="DELETE">DELETE</option>
+              <option value="PUT">PUT</option>
+              <option value="HEAD">HEAD</option>
+            </select><br />
+            URI: <input type="text" /><br />
+            Status: <select
+            ng-model="statArray.id"
+            ng-options="stat.id as stat.statResult for stat in statArray"></select><br />
+            Content/Type: <input type="text" />
+          </div>
+          <div class="right-half">
+            Request: <textarea></textarea><br />
+            Response: <textarea></textarea><br />
+          </div>
+          <div class="full-width">
+            <input type="button" ng-click="reset()" value="Reset" />
+            <input type="submit" ng-click="update(test)" value="Create" />
+          </div>
+        </form>
+      </div>
+    </li>
+  </ul>
+
+  <br style="clear: both;" />
+</div>
+<div style="clear: both;"></div>
