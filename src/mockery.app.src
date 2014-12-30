@@ -6,8 +6,9 @@
  ,{applications,
    [kernel
    ,stdlib
-   ,cowboy
    ,crypto
+   ,cowboy
+   ,jiffy
    ]}
  ,{env,[]}
  ,{modules, []}
