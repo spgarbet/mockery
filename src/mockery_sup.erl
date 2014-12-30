@@ -28,6 +28,7 @@ start_link() ->
 %% Child :: {Id,StartFunc,Restart,Shutdown,Type,Modules}
 init([]) ->
   Procs = [],
+  lager:start(),
   {ok, {{one_for_one, 1, 5}, Procs}}.
 
 %%====================================================================

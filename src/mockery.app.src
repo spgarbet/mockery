@@ -9,6 +9,7 @@
    ,crypto
    ,cowboy
    ,jiffy
+   ,lager
    ]}
  ,{env,[]}
  ,{modules, []}

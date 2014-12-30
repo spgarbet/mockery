@@ -26,6 +26,7 @@
 %%====================================================================
 
 read(Verb, URI, Req) ->
+  lager:info("Testing out lager. We're in mock:read()"),
   {Dir, File} = name(Verb, URI, Req),
   N = ?ROOT ++ Dir ++ "/" ++ File,
   {ok, Res}  = file:read_file(N++".res"),
