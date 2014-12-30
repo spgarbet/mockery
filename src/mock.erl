@@ -15,7 +15,6 @@
          ,ensure_exists/2
          ,store/5
         ]).
--compile(export_all).
 
 -import(string, ['++'/2, substr/2, substr/3]).
 
@@ -44,7 +43,7 @@ read(Verb, URI, Req) ->
 urlsafe_encode64(Bin) ->
   Bin2 = base64:encode(Bin),
   Bin3 = re:replace(binary_to_list(Bin2), "\\+", "-", [global, {return,list}]),
-                                   re:replace(Bin3, "/", "_", [global, {return,list}]).
+  re:replace(Bin3, "/", "_", [global, {return,list}]).
 
 %%--------------------------------------------------------------------
 
