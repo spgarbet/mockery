@@ -12,3 +12,7 @@ priv/scratch/
 priv/data/
 erln8.config
 src/edate.beam
+_deps
+_build
+.rebar3
+logs/
