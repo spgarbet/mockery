@@ -18,8 +18,7 @@
 
 -import(string, ['++'/2, substr/2, substr/3]).
 
-%% Constants
--define(ROOT, "./mocks/").
+
 
 %%====================================================================
 %% API
@@ -28,7 +27,7 @@
 read(Verb, URI, Req) ->
   lager:info("Testing out lager. We're in mock:read()"),
   {Dir, File} = name(Verb, URI, Req),
-  N = ?ROOT ++ Dir ++ "/" ++ File,
+  N = filename(Dir, File),
   {ok, Res}  = file:read_file(N++".res"),
   {ok, Meta} = file:read_file(N++".nfo"),
   {Meta2}    = jiffy:decode(Meta),
@@ -39,6 +38,13 @@ read(Verb, URI, Req) ->
 %%====================================================================
 %% Private Methods
 %%====================================================================
+
+root() ->
+    {ok, Dir} = application:get_key(root),
+    Dir.
+
+filename(Dir, File) -> 
+    filename:join([root(), Dir, File]).
 
 % Verb, look into prop list to map between cowboy verb and needs here
 urlsafe_encode64(Bin) ->
@@ -63,18 +69,18 @@ name(Verb, URI, Req) ->
 %%--------------------------------------------------------------------
 
 ensure_exists(Dir) ->
-  ensure_exists(Dir, file:list_dir(?ROOT ++ Dir)).
+  ensure_exists(Dir, file:list_dir(root() ++ Dir)).
 ensure_exists(_,  {ok, _}) ->
   ok;
 ensure_exists(Dir, _) ->
-  file:make_dir(?ROOT ++ Dir).
+  file:make_dir(root() ++ Dir).
 
 %%--------------------------------------------------------------------
 
 store(Verb, URI, Req, Res, Hdr) ->
   {Dir, File} = name(Verb, URI, Req),
   ensure_exists(Dir),
-  Filename = ?ROOT ++ Dir ++ "/" ++ File,
+  Filename = filename(Dir, File),
   {ok, _} = file:write_file(Filename ++ ".res", Res),
   file:write_file(Filename ++ ".nfo", Hdr).
 
