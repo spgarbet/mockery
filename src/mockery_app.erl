@@ -16,7 +16,8 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-    file:set_cwd("../.."),
+    file:set_cwd("../../.."),
+    erlang:display(file:get_cwd()),
     Routes    = routes(),
     Dispatch  = cowboy_router:compile(Routes),
     Port      = port(),

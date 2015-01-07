@@ -4,5 +4,6 @@
 
 start() ->
     ok = application:start(crypto),
+    ok = application:start(jiffy),
     ok = application:start(cowboy),
     ok = application:start(mockery).
