@@ -1,15 +1,15 @@
 {application, mockery,
  [{description, "Mock all the Thing!"}
  ,{vsn, "0.1.0"}
- ,{registered, []}
+ ,{registered, [mockery_sup]}
  ,{mod, {'mockery_app', []}}
  ,{applications,
    [kernel
    ,stdlib
+   ,lager
    ,crypto
    ,cowboy
    ,jiffy
-   ,lager
    ]}
  ,{env,[]}
  ,{modules, []}

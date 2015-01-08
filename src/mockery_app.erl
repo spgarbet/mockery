@@ -15,12 +15,13 @@
 
 start(_StartType, _StartArgs) ->
   Dispatch = cowboy_router:compile([
-      {'_', [{"/mockeries", mockeries_handler, []}
-            ,{'_',          mock_handler,      []}
+      {'_', [
+             {"/mockeries",     mockeries_handler, []}
+            ,{"/mockery/[...]", mock_handler,      []}
             ]
       }
   ]),
-  cowboy:start_http(my_http_listener
+  cowboy:start_http(http
                     ,100
                     ,[{port, 8080}]
                     ,[{env, [{dispatch, Dispatch}]}]

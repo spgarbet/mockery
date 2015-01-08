@@ -1,8 +1,18 @@
 The purpose of Mockery is to quickly mock any endpoint called by a server with a canned response. This has value for full regression testing, when the response is known.
 
+To get started, you need to download rebar3, put it into a readable /bin, and
+make it executable.
+
+You can download rebar3 from here: https://s3.amazonaws.com/rebar3/rebar3
+
+Rebar3 has many commands you can run. You can view these commands with:
+rebar3 help
+
+To compile and run do:
+
 ```
-make
-./_rel/mockery_release/bin/mockery_release console
+rebar3 release
+./_build/rel/mockery_release/bin/mockery_release console
 ```
 
 ##The Massive To Do List
