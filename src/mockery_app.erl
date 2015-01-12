@@ -9,24 +9,21 @@
 -export([start/2
         ,stop/1]).
 
+-define(C_ACCEPTORS,  100).
+
 %%====================================================================
 %% API
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-  Dispatch = cowboy_router:compile([
-      {'_', [{"/mockeries", mockeries_handler, []}
-            ,{'_',          mock_handler,      []}
-            ]
-      }
-  ]),
-  cowboy:start_http(my_http_listener
-                    ,100
-                    ,[{port, 8080}]
-                    ,[{env, [{dispatch, Dispatch}]}]
-  ),
-  file:set_cwd("../.."),
-  mockery_sup:start_link().
+    erlang:display("mockery_app:start"),
+    Routes    = routes(),
+    Dispatch  = cowboy_router:compile(Routes),
+    Port      = port(),
+    TransOpts = [{port, Port}],
+    ProtoOpts = [{env, [{dispatch, Dispatch}]}],
+    {ok, _}   = cowboy:start_http(http, ?C_ACCEPTORS, TransOpts, ProtoOpts),
+    mockery_sup:start_link().
 
 %%--------------------------------------------------------------------
 
@@ -36,4 +33,22 @@ stop(_State) ->
 %%====================================================================
 %% Internal functions
 %%====================================================================
+
+routes() ->
+    [
+        {'_', [{"/mockeries", mockeries_handler, []},
+               {'_',          mock_handler,      []}
+              ]
+      }
+    ].
+
+port() ->
+    case os:getenv("PORT") of
+        false ->
+            {ok, Port} = application:get_env(port),
+            Port;
+        Other ->
+            list_to_integer(Other)
+    end.
+    
 
