@@ -1,15 +1,16 @@
 {application, mockery,
- [{description, "Mock all the Things!"}
- ,{vsn, "0.1.0"}
- ,{registered, []}
- ,{mod, {'mockery_app', []}}
- ,{applications,
-   [kernel
-   ,stdlib
-   ,crypto
-   ,cowboy
-   ,jiffy
-   ]}
- ,{env,[]}
- ,{modules, []}
- ]}.
+    [ {description, "Mock all the Things!"},
+      {vsn,         "0.1.0"},
+      {registered, []},
+      {mod,        {'mockery_app', []}},
+      {applications,
+                   [ kernel,
+                     stdlib,
+                     crypto,
+                     cowboy,
+                     jiffy
+                   ]},
+      {env,[]},
+      {modules, []}
+    ]
+}.

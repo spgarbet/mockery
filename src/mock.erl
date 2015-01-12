@@ -8,16 +8,15 @@
 -export([read/3]).
 
 %% Private methods
--export([urlsafe_encode64/1
-         ,hash/1
-         ,name/3
-         ,ensure_exists/1
-         ,ensure_exists/2
-         ,store/5
+-export([urlsafe_encode64/1,
+         hash/1,
+         name/3,
+         ensure_exists/1,
+         ensure_exists/2,
+         store/5
         ]).
 
 -import(string, ['++'/2, substr/2, substr/3]).
-
 
 
 %%====================================================================
@@ -26,10 +25,10 @@
 
 read(Verb, URI, Req) ->
   {Dir, File} = name(Verb, URI, Req),
-  N = filename(Dir, File),
-  {ok, Res}  = file:read_file(N++".res"),
-  {ok, Meta} = file:read_file(N++".nfo"),
-  {Meta2}    = jiffy:decode(Meta),
+  N           = filename(Dir, File),
+  {ok, Res}   = file:read_file(N++".res"),
+  {ok, Meta}  = file:read_file(N++".nfo"),
+  {Meta2}     = jiffy:decode(Meta),
   {ok, Res, Meta2}.
 
 %%--------------------------------------------------------------------
@@ -39,7 +38,7 @@ read(Verb, URI, Req) ->
 %%====================================================================
 
 root() ->
-    {ok, Dir} = application:get_key(root),
+    {ok, Dir} = application:get_env(mockery, root),
     Dir.
 
 filename(Dir, File) -> 

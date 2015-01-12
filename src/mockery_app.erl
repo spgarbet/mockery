@@ -6,8 +6,8 @@
 -behaviour(application).
 
 %% Application callbacks
--export([start/2
-        ,stop/1]).
+-export([start/2,
+         stop/1]).
 
 -define(C_ACCEPTORS,  100).
 
