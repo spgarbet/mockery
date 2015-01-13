@@ -5,19 +5,9 @@
 -module(mock).
 
 %% Public API
--export([read/3]).
-
-%% Private methods
--export([urlsafe_encode64/1,
-         hash/1,
-         name/3,
-         ensure_exists/1,
-         ensure_exists/2,
-         store/5
-        ]).
+-export([read/3, store/5]).
 
 -import(string, ['++'/2, substr/2, substr/3]).
-
 
 %%====================================================================
 %% API
@@ -33,10 +23,20 @@ read(Verb, URI, Req) ->
 
 %%--------------------------------------------------------------------
 
+store(Verb, URI, Req, Res, Hdr) ->
+  {Dir, File} = name(Verb, URI, Req),
+  ensure_exists(Dir),
+  Filename = filename(Dir, File),
+  {ok, _} = file:write_file(Filename ++ ".res", Res),
+  file:write_file(Filename ++ ".nfo", Hdr).
+
+%%--------------------------------------------------------------------
+
 %%====================================================================
 %% Private Methods
 %%====================================================================
 
+% What directory holds response files
 root() ->
     {ok, Dir} = application:get_env(mockery, root),
     Dir.
@@ -44,8 +44,10 @@ root() ->
 filename(Dir, File) -> 
     filename:join([root(), Dir, File]).
 
-% Verb, look into prop list to map between cowboy verb and needs here
-urlsafe_encode64(Bin) ->
+% Convert a base64 encoded binary into a filename safe binary
+%  + => - (plus is a reserved character in filenames, convert to minus)
+%  / => _ (slash is a reserved character in filenames, convert to underscore)
+filename_safe_encode64(Bin) ->
   Bin2 = base64:encode(Bin),
   Bin3 = re:replace(binary_to_list(Bin2), "\\+", "-", [global, {return,list}]),
   re:replace(Bin3, "/", "_", [global, {return,list}]).
@@ -54,7 +56,7 @@ urlsafe_encode64(Bin) ->
 
 % Hash method
 hash(Data) ->
-  Hash = urlsafe_encode64(crypto:hash(sha, Data)),
+  Hash = filename_safe_encode64(crypto:hash(sha, Data)),
   {substr(Hash, 1, 2), substr(Hash, 3)}.
 
 %%--------------------------------------------------------------------
@@ -66,6 +68,7 @@ name(Verb, URI, Req) ->
 
 %%--------------------------------------------------------------------
 
+% If a requested directory doesn't exist, create it
 ensure_exists(Dir) ->
   ensure_exists(Dir, file:list_dir(root() ++ Dir)).
 ensure_exists(_,  {ok, _}) ->
@@ -75,11 +78,6 @@ ensure_exists(Dir, _) ->
 
 %%--------------------------------------------------------------------
 
-store(Verb, URI, Req, Res, Hdr) ->
-  {Dir, File} = name(Verb, URI, Req),
-  ensure_exists(Dir),
-  Filename = filename(Dir, File),
-  {ok, _} = file:write_file(Filename ++ ".res", Res),
-  file:write_file(Filename ++ ".nfo", Hdr).
+
 
 
