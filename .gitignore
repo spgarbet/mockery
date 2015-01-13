@@ -1,9 +1,7 @@
 *.swp
 .DS_Store
-rel/mockery
-rel/sys.config
-rel/vm.args
-_rel/
+config/sys.config
+config/vm.args
 deps/
 ebin/
 .eunit/*
@@ -11,8 +9,6 @@ ebin/
 priv/scratch/
 priv/data/
 erln8.config
-src/edate.beam
-_deps
 _build
 .rebar3
 logs/
