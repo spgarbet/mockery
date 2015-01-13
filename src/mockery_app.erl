@@ -37,7 +37,7 @@ stop(_State) ->
 routes() ->
     [
         {'_', [{"/mockeries",     mockeries_handler, []},
-               {"/mockery/[...]", mock_handler,      []}
+               {'_',              mock_handler,      []}
               ]
       }
     ].
