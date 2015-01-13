@@ -23,7 +23,6 @@ init(Req, Opts) ->
 %%--------------------------------------------------------------------
 
 handle(Req, Opts) ->
-  erlang:display("mock_handler:init"),
   URI             = extract_uri(Req),
   Method          = cowboy_req:method(Req),
   {_, Body, _}    = cowboy_req:body(Req),

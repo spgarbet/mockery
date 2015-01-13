@@ -45,7 +45,7 @@ routes() ->
 port() ->
     case os:getenv("PORT") of
         false ->
-            {ok, Port} = application:get_env(port),
+            {ok, Port} = application:get_env(mockery, port),
             Port;
         Other ->
             list_to_integer(Other)

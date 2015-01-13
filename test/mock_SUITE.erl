@@ -1,13 +1,36 @@
 -module(mock_SUITE).
 
+-compile(export_all).
+
 -include_lib("common_test/include/ct.hrl").
--export([all/0]).
--export([test1/1, test2/1]).
 
-all() -> [test1,test2].
+% etest macros
+-include_lib ("etest/include/etest.hrl").
+% etest_http macros
+-include_lib ("etest_http/include/etest_http.hrl").
 
-test1(_Config) ->
-  "R0VU" = mock:urlsafe_encode64(<<"GET">>).
+suite() ->
+    [{timetrap,{seconds,30}}].
 
-test2(_Config) ->
-  ok.
+init_per_suite(Config) ->
+    mockery:start(),
+    Config.
+
+end_per_suite(_Config) ->
+    mockery:stop(),
+    ok.
+
+init_per_testcase(_TestCase, Config) ->
+    Config.
+
+end_per_testcase(_TestCase, _Config) ->
+    ok.
+
+all() -> 
+    [joe].
+
+joe(_Config) ->
+    Response = ?perform_get("http://localhost:8080/joe"),
+    ?assert_status(200, Response),
+    ?assert_body("booyah", Response),
+    ok.
