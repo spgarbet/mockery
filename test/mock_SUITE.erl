@@ -16,6 +16,7 @@ init_per_suite(Config) ->
     application:set_env(mockery, port, 8080),
     application:set_env(mockery, root, "../../mocks"),
     mockery:start(),
+    erlang:display(Config),
     Config.
 
 end_per_suite(_Config) ->
@@ -33,6 +34,7 @@ all() ->
 
 joe(_Config) ->
     Response = ?perform_get("http://localhost:8080/joe"),
+    erlang:display(Response),
     ?assert_status(200,    Response),
     ?assert_body("booyah", Response),
     ok.

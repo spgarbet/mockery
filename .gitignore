@@ -12,3 +12,4 @@ erln8.config
 _build
 .rebar3
 logs/
+test/*.beam
