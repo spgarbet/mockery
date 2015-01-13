@@ -20,5 +20,5 @@
   0},
  {<<"cowboy">>,
   {git,"git://github.com/ninenines/cowboy.git",
-       {ref,"3d9078018d7f0a83a359b70c698d35e35fbb94f9"}},
+       {ref,"5ff3fdd91e20a137b6378c7271826c1d94d4e3d2"}},
   0}].
