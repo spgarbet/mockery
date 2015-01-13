@@ -16,8 +16,10 @@
 read(Verb, URI, Req) ->
   {Dir, File} = name(Verb, URI, Req),
   N           = filename(Dir, File),
-  {ok, Res}   = file:read_file(N++".res"),
-  {ok, Meta}  = file:read_file(N++".nfo"),
+  %{ok, Res}   = file:read_file(N++".res"),
+  %{ok, Meta}  = file:read_file(N++".nfo"),
+  {ok, Res}   = get_res(N++".res"),
+  {ok, Meta}  = get_meta(N++".nfo"),
   {Meta2}     = jiffy:decode(Meta),
   {ok, Res, Meta2}.
 
@@ -44,6 +46,29 @@ root() ->
 filename(Dir, File) -> 
     filename:join([root(), Dir, File]).
 
+get_res(Filename) ->
+  case file:read_file(Filename) of
+    {error, Reason} ->
+      % Log error here
+      {ok, ""};
+    {ok, Res} ->
+      {ok, Res}
+  end.
+
+get_meta(Filename) ->
+  case file:read_file(Filename) of
+    {error, Reason} ->
+      % Log error here
+      {ok, <<"{
+            \"URI\": \"/joe?pic=1\",
+            \"Status\": 200,
+            \"Request\": \"\",
+            \"Content-Type\": \"image/jpeg\"
+          }">>};
+    {ok, Res} ->
+      {ok, Res}
+  end.
+  
 % Convert a base64 encoded binary into a filename safe binary
 %  + => - (plus is a reserved character in filenames, convert to minus)
 %  / => _ (slash is a reserved character in filenames, convert to underscore)

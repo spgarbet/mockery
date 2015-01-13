@@ -3,12 +3,9 @@
 %% @end
 %%%-------------------------------------------------------------------
 -module(mock_handler).
--behaviour(cowboy_handler).
 
 %% Application callbacks
--export([init/2,
-         handle/2,
-         terminate/3]).
+-export([init/2]).
 
 -import(string, ['++'/2]).
 
@@ -17,22 +14,17 @@
 %%====================================================================
 
 init(Req, Opts) ->
-  {ok, handle(Req, Opts), Opts}.
-
+  Req2 = get_mock(Req),
+  {ok, Req2, Opts}.
 
 %%--------------------------------------------------------------------
 
-handle(Req, Opts) ->
+get_mock(Req) ->
   URI             = extract_uri(Req),
   Method          = cowboy_req:method(Req),
   {_, Body, _}    = cowboy_req:body(Req),
   {ok, Res, Meta} = mock:read(Method, URI, Body),
   cowboy_req:reply(status(Meta), header(Meta), Res, Req).
-  
-%%--------------------------------------------------------------------
-
-terminate(_Reason, _Req, _State) ->
-  ok.
 
 %%====================================================================
 %% Internal functions
@@ -63,4 +55,3 @@ header(X) ->
 % Extract status from meta info
 status(X) ->
   proplists:get_value(<<"Status">>, X).
-
