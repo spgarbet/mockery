@@ -43,9 +43,11 @@ routes() ->
     ].
 
 port() ->
+    erlang:display("PORT CALLED"),
     case os:getenv("PORT") of
         false ->
             {ok, Port} = application:get_env(mockery, port),
+            erlang:display("Got Port:"++Port),
             Port;
         Other ->
             list_to_integer(Other)

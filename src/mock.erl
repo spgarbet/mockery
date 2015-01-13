@@ -23,11 +23,12 @@ read(Verb, URI, Req) ->
         {ok, Res, Meta2}
     catch
         _:_ ->
-            erlang:display(URI ++ " => Unable to locate "++Filename),
+            {ok, Cwd} = file:get_cwd(),
+            erlang:display("CWD "++Cwd),
+            erlang:display(binary_to_list(Verb) ++ " " ++URI ++ " => Unable to locate "++Filename),
             {error}
     end.
 
- 
 
 %%--------------------------------------------------------------------
 

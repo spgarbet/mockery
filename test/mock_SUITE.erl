@@ -13,11 +13,13 @@ suite() ->
     [{timetrap,{seconds,30}}].
 
 init_per_suite(Config) ->
+    application:set_env(mockery, port, 8080),
+    application:set_env(mockery, root, "../../mocks"),
     mockery:start(),
     Config.
 
 end_per_suite(_Config) ->
-    mockery:stop(),
+    application:stop(mockery),
     ok.
 
 init_per_testcase(_TestCase, Config) ->
@@ -31,6 +33,6 @@ all() ->
 
 joe(_Config) ->
     Response = ?perform_get("http://localhost:8080/joe"),
-    ?assert_status(200, Response),
+    ?assert_status(200,    Response),
     ?assert_body("booyah", Response),
     ok.
